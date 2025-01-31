@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Send, Image, Smile, Plus, X } from "lucide-react";
 
 interface ChatInputProps {
-  onSendMessage: (message: string) => void;
+  onSendMessage: (message: string, images?: string[]) => void;
 }
 
 const ChatInput = ({ onSendMessage }: ChatInputProps) => {
@@ -14,11 +14,14 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() || selectedFiles.length > 0) {
-      onSendMessage(message);
+    if (message.trim() || previewUrls.length > 0) {
+      onSendMessage(message, previewUrls);
       setMessage("");
       setSelectedFiles([]);
       setPreviewUrls([]);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 
@@ -50,12 +53,10 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
 
   const toggleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
-    // TODO: Implement emoji picker integration
     console.log("Emoji picker clicked");
   };
 
   const handleMoreOptions = () => {
-    // TODO: Implement more options menu
     console.log("More options clicked");
   };
 
@@ -69,7 +70,7 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
                 <img 
                   src={url} 
                   alt={`Preview ${index + 1}`} 
-                  className="max-h-32 rounded-lg"
+                  className="h-32 w-32 object-cover rounded-lg"
                 />
                 <button
                   onClick={() => clearSelectedFile(index)}

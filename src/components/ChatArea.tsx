@@ -12,6 +12,7 @@ interface Message {
   content: string;
   timestamp: string;
   isSent: boolean;
+  images?: string[];
 }
 
 const ChatArea = ({ conversation }: ChatAreaProps) => {
@@ -30,7 +31,7 @@ const ChatArea = ({ conversation }: ChatAreaProps) => {
     },
   ]);
 
-  const handleSendMessage = (content: string) => {
+  const handleSendMessage = (content: string, images?: string[]) => {
     const newMessage: Message = {
       id: Date.now().toString(),
       content,
@@ -39,6 +40,7 @@ const ChatArea = ({ conversation }: ChatAreaProps) => {
         minute: "2-digit",
       }),
       isSent: true,
+      images,
     };
     setMessages([...messages, newMessage]);
   };
@@ -74,6 +76,7 @@ const ChatArea = ({ conversation }: ChatAreaProps) => {
             content={message.content}
             timestamp={message.timestamp}
             isSent={message.isSent}
+            images={message.images}
           />
         ))}
       </div>

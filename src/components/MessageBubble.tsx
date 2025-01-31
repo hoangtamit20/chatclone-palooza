@@ -2,9 +2,10 @@ interface MessageBubbleProps {
   content: string;
   timestamp: string;
   isSent: boolean;
+  images?: string[];
 }
 
-const MessageBubble = ({ content, timestamp, isSent }: MessageBubbleProps) => {
+const MessageBubble = ({ content, timestamp, isSent, images }: MessageBubbleProps) => {
   return (
     <div
       className={`flex ${
@@ -18,7 +19,19 @@ const MessageBubble = ({ content, timestamp, isSent }: MessageBubbleProps) => {
             : "bg-messenger-gray text-black rounded-bl-lg"
         }`}
       >
-        <p className="text-sm">{content}</p>
+        {images && images.length > 0 && (
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Sent image ${index + 1}`}
+                className="rounded-lg max-h-48 w-full object-cover"
+              />
+            ))}
+          </div>
+        )}
+        {content && <p className="text-sm">{content}</p>}
         <span className="text-xs opacity-70 mt-1 block">
           {timestamp}
         </span>
