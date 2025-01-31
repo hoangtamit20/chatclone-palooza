@@ -1,3 +1,10 @@
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "./ui/dialog";
+
 interface MessageBubbleProps {
   content: string;
   timestamp: string;
@@ -6,6 +13,8 @@ interface MessageBubbleProps {
 }
 
 const MessageBubble = ({ content, timestamp, isSent, images }: MessageBubbleProps) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div
       className={`flex ${
@@ -22,12 +31,22 @@ const MessageBubble = ({ content, timestamp, isSent, images }: MessageBubbleProp
         {images && images.length > 0 && (
           <div className="grid grid-cols-2 gap-2 mb-2">
             {images.map((image, index) => (
-              <img
-                key={index}
-                src={image}
-                alt={`Sent image ${index + 1}`}
-                className="rounded-lg max-h-48 w-full object-cover"
-              />
+              <Dialog key={index}>
+                <DialogTrigger asChild>
+                  <img
+                    src={image}
+                    alt={`Sent image ${index + 1}`}
+                    className="rounded-lg max-h-48 w-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                  />
+                </DialogTrigger>
+                <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 overflow-hidden">
+                  <img
+                    src={image}
+                    alt={`Sent image ${index + 1}`}
+                    className="w-full h-full object-contain"
+                  />
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
         )}
