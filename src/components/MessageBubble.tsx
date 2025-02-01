@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "./ui/dialog";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 interface MessageBubbleProps {
