@@ -39,12 +39,14 @@ const MessageBubble = ({ content, timestamp, isSent, images }: MessageBubbleProp
                     className="rounded-lg max-h-48 w-full object-cover cursor-pointer hover:opacity-90 transition-opacity"
                   />
                 </DialogTrigger>
-                <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 overflow-hidden">
-                  <img
-                    src={image}
-                    alt={`Sent image ${index + 1}`}
-                    className="w-full h-full object-contain"
-                  />
+                <DialogContent className="max-w-[95vw] max-h-[95vh] w-auto h-auto p-0">
+                  <div className="w-full h-full flex items-center justify-center bg-black/50">
+                    <img
+                      src={image}
+                      alt={`Sent image ${index + 1}`}
+                      className="max-w-full max-h-[95vh] object-contain"
+                    />
+                  </div>
                 </DialogContent>
               </Dialog>
             ))}
