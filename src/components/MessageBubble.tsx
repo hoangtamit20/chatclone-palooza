@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,15 +5,17 @@ import {
 } from "./ui/dialog";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Avatar, AvatarImage } from "./ui/avatar";
 
 interface MessageBubbleProps {
   content: string;
   timestamp: string;
   isSent: boolean;
   images?: string[];
+  avatar?: string;
 }
 
-const MessageBubble = ({ content, timestamp, isSent, images }: MessageBubbleProps) => {
+const MessageBubble = ({ content, timestamp, isSent, images, avatar }: MessageBubbleProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevImage = () => {
@@ -28,9 +29,14 @@ const MessageBubble = ({ content, timestamp, isSent, images }: MessageBubbleProp
   return (
     <div
       className={`flex ${
-        isSent ? "justify-end" : "justify-start"
+        isSent ? "justify-end" : "justify-start items-end gap-2"
       } mb-4 animate-message-in`}
     >
+      {!isSent && avatar && (
+        <Avatar className="w-6 h-6">
+          <AvatarImage src={avatar} alt="User avatar" />
+        </Avatar>
+      )}
       <div
         className={`max-w-[70%] rounded-2xl px-4 py-2 ${
           isSent
